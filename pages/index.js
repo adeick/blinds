@@ -3,6 +3,7 @@ import {
   Image,
   Box,
   Flex,
+  Icon,
   IconButton,
   Button,
   ButtonGroup,
@@ -21,12 +22,15 @@ import {
 } from '@chakra-ui/react';
 
 import { SunIcon, MoonIcon } from '@chakra-ui/icons'
+import { FaMoon, FaCloudSun, FaCloud, FaSun } from 'react-icons/fa';
+
 import BlindSlider from '../components/BlindSlider'
+
+
 
 
 const Home = () => {
   const { colorMode, toggleColorMode } = useColorMode();
-  //const value = useColorModeValue(lightModeValue, darkModeValue);
 
   return (
     <div id="Home">
@@ -42,22 +46,22 @@ const Home = () => {
             </Text>
             <Flex w="100%">
               <Spacer />
-              <Button variant="solid" colorScheme='orange'
-                bg="gray.900" _hover={{ bg: "gray.600" }}>
+              <Button variant="solid" colorScheme='orange' size={useBreakpointValue({ base: 'sm', md: 'md' })}
+                bg="gray.900" _hover={{ bg: "gray.600" }} leftIcon={<Icon as={FaMoon} color="yellow.200" />}>
                 <Text color="white">
                   All Closed
                 </Text>
               </Button>
               <Spacer />
-              <Button variant="solid" colorScheme='orange'
-                bg="gray.600" _hover={{ bg: "gray.500" }}>
+              <Button variant="solid" colorScheme='orange' size={useBreakpointValue({ base: 'sm', md: 'md' })}
+                bg="gray.600" _hover={{ bg: "gray.500" }} leftIcon={<Icon as={FaCloud} color="gray.300" />}>
                 <Text color="white">
                   Dim
                 </Text>
               </Button>
               <Spacer />
-              <Button variant="solid" colorScheme='orange'
-                bg="gray.50" _hover={{ bg: "gray.200" }}>
+              <Button variant="solid" colorScheme='orange' size={useBreakpointValue({ base: 'sm', md: 'md' })}
+                bg="gray.50" _hover={{ bg: "gray.200" }} leftIcon={<Icon as={FaSun} color="yellow.500" />}>
                 <Text color="black">
                   All Open
                 </Text>
