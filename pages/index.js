@@ -38,30 +38,30 @@ const Home = () => {
         <IconButton size="md" mr="30px" aria-label='Search database' icon={useColorModeValue(<MoonIcon />, <SunIcon />)} onClick={toggleColorMode} />
         NavBar
       </Flex>
-      <Flex bg={useColorModeValue("gray.200", "gray.900")} h="94vh" w="100%" py="5vh">
+      <Flex bg={useColorModeValue("gray.200", "gray.900")} h={useBreakpointValue({ base: '144vh', md: '94vh' })} w="100%" py="5vh">
         <VStack spacing="5vh" w="100%">
-          <Flex bg="orange.200" h="25vh" w="80vw" py="5vh" px="30px" borderRadius="15px" direction="column">
-            <Text color="black" as="b" mb="6vh">
+          <Flex bg={useColorModeValue("orange.100", "orange.200")} h="25vh" w="80vw" py="3vh" px="30px" borderRadius="15px" direction={useBreakpointValue({ base: 'row', md: 'column' })}>
+            <Text color="black" as="b" mb={useBreakpointValue({ base: '1vh', md: "6vh" })} position="absolute">
               Presets
             </Text>
-            <Flex w="100%">
+            <Flex w="100%" h="100%" direction={useBreakpointValue({ base: 'column', md: "row" })} alignItems={useBreakpointValue({ base: 'center', md: 'flex-end' })}>
               <Spacer />
-              <Button variant="solid" colorScheme='orange' size={useBreakpointValue({ base: 'sm', md: 'md' })}
-                bg="gray.900" _hover={{ bg: "gray.600" }} leftIcon={<Icon as={FaMoon} color="yellow.200" />}>
+              <Button my="5px" minWidth="110px" variant="solid" size={useBreakpointValue({ base: 'sm', md: 'md' })}
+                bg="gray.900" _hover={{ bg: "gray.700" }} _active={{ bg: "gray.800" }} leftIcon={<Icon as={FaMoon} color="yellow.200" />}>
                 <Text color="white">
                   All Closed
                 </Text>
               </Button>
               <Spacer />
-              <Button variant="solid" colorScheme='orange' size={useBreakpointValue({ base: 'sm', md: 'md' })}
-                bg="gray.600" _hover={{ bg: "gray.500" }} leftIcon={<Icon as={FaCloud} color="gray.300" />}>
+              <Button my="5px" minWidth="110px" variant="solid" colorScheme='orange' size={useBreakpointValue({ base: 'sm', md: 'md' })}
+                bg="gray.600" _hover={{ bg: "gray.500" }} _active={{ bg: "gray.400" }} leftIcon={<Icon as={FaCloud} color="gray.300" />}>
                 <Text color="white">
-                  Dim
+                  All Dim
                 </Text>
               </Button>
               <Spacer />
-              <Button variant="solid" colorScheme='orange' size={useBreakpointValue({ base: 'sm', md: 'md' })}
-                bg="gray.50" _hover={{ bg: "gray.200" }} leftIcon={<Icon as={FaSun} color="yellow.500" />}>
+              <Button my="5px" minWidth="110px" variant="solid" colorScheme='orange' size={useBreakpointValue({ base: 'sm', md: 'md' })}
+                bg="gray.50" _hover={{ bg: "gray.200" }} _active={{ bg: "gray.100" }} leftIcon={<Icon as={FaSun} color="yellow.500" />}>
                 <Text color="black">
                   All Open
                 </Text>
@@ -69,30 +69,34 @@ const Home = () => {
               <Spacer />
             </Flex>
           </Flex>
-          <Flex bg="orange.300" h="50vh" w="80vw" p="30px" borderRadius="15px">
-            <Text color="black" as="b" mb="6vh">
+          <Flex bg={useColorModeValue("orange.200", "orange.300")} direction="column" h={useBreakpointValue({ base: '100vh', md: '50vh' })} w="80vw" borderRadius="15px">
+            <Text pl="30px" py="3vh" color="black" as="b" position="absolute">
               Manual
             </Text>
-            <Flex w="100%" direction="row" alignItems="center">
-              <BlindSlider />
-              <BlindSlider />
-              <BlindSlider />
+            <Flex w="100%" h="100%" pt="8%"
+              direction={useBreakpointValue({ base: 'column', md: 'row' })}
+              alignItems="center" pb="30px">
               <Spacer />
-              <BlindSlider />
-              <BlindSlider />
-              <BlindSlider />
+              <BlindSlider phone={useBreakpointValue({ base: true, md: false })} />
+              <BlindSlider phone={useBreakpointValue({ base: true, md: false })} />
+              <BlindSlider phone={useBreakpointValue({ base: true, md: false })} />
               <Spacer />
-              <BlindSlider />
-              <BlindSlider />
-              <BlindSlider />
+              <BlindSlider phone={useBreakpointValue({ base: true, md: false })} />
+              <BlindSlider phone={useBreakpointValue({ base: true, md: false })} />
+              <BlindSlider phone={useBreakpointValue({ base: true, md: false })} />
               <Spacer />
-              <BlindSlider />
-              <BlindSlider />
-              <BlindSlider />
+              <BlindSlider phone={useBreakpointValue({ base: true, md: false })} />
+              <BlindSlider phone={useBreakpointValue({ base: true, md: false })} />
+              <BlindSlider phone={useBreakpointValue({ base: true, md: false })} />
               <Spacer />
-              <BlindSlider />
-              <BlindSlider />
-              <BlindSlider />
+              <BlindSlider phone={useBreakpointValue({ base: true, md: false })} />
+              <BlindSlider phone={useBreakpointValue({ base: true, md: false })} />
+              <BlindSlider phone={useBreakpointValue({ base: true, md: false })} />
+              <Spacer />
+              <BlindSlider phone={useBreakpointValue({ base: true, md: false })} />
+              <BlindSlider phone={useBreakpointValue({ base: true, md: false })} />
+              <BlindSlider phone={useBreakpointValue({ base: true, md: false })} />
+              <Spacer />
             </Flex>
           </Flex>
         </VStack>
