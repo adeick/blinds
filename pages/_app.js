@@ -6,7 +6,7 @@ function MyApp({ Component, pageProps }) {
     return (
         <ChakraProvider>
             <Head>
-                <title>ISU Blinds Controller</title>
+                <title>Auto Twisty | ISU Blinds Controller</title>
             </Head>
             <Component {...pageProps} />
         </ChakraProvider>

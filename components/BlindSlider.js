@@ -20,6 +20,7 @@ const BlindSlider = (props) => {
                 orientation={props.phone ? 'horizontal' : 'vertical'}
                 minH={props.phone ? "40px" : '100px'}
                 minW={props.phone ? '100px' : '10px'}
+                step={10}
             >
                 <SliderTrack bg='red.100'>
 

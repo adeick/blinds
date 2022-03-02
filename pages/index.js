@@ -1,4 +1,6 @@
 import Head from 'next/head'
+import Link from 'next/link'
+
 import {
   Image,
   Box,
@@ -13,25 +15,22 @@ import {
   useColorModeValue,
   VStack, Stack, Spacer,
   useBreakpointValue,
-  HStack,
-  Slider,
-  SliderTrack,
-  SliderFilledTrack,
-  SliderThumb,
-  SliderMark,
 } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 
 
-import { SunIcon, MoonIcon } from '@chakra-ui/icons'
+import { ArrowForwardIcon } from '@chakra-ui/icons'
 import { FaMoon, FaCloudSun, FaCloud, FaSun } from 'react-icons/fa';
 
 import BlindSlider from '../components/BlindSlider'
+import NavBar from '../components/NavBar';
+import Footer from '../components/Footer';
 
 
 
 
-const Home = () => {
+
+const Login = () => {
   const { colorMode, toggleColorMode } = useColorMode();
   const [windowSize, setWindowSize] = useState(0);
 
@@ -56,75 +55,43 @@ const Home = () => {
 
   return (
     <div id="Home">
-      <Flex bg={useColorModeValue("gray.300", "gray.800")} h="6vh" w="100%" alignItems="center" px="30px">
-        <IconButton size="md" mr="30px" aria-label='Search database' icon={useColorModeValue(<MoonIcon />, <SunIcon />)} onClick={toggleColorMode} />
-        NavBar
-      </Flex>
-      <Flex bg={useColorModeValue("gray.200", "gray.900")} h={bgHeight} w="100%" py="5vh">
-        <VStack spacing="5vh" w="100%">
-          <Flex bg={'orange.200'} h="25vh" w="80vw" py="3vh" pr="80px" pl="30px" borderRadius="15px" direction={rowColumn}>
-            <Text color="black" as="b" mb={presetTextMargin} position="absolute">
-              Presets
+      <NavBar page="Authentication" />
+      {/* TODO */}
+      <Flex bgGradient={useColorModeValue('linear-gradient(to-t, orange.300 0%, orange.200 33%, blue.100 83%, blue.200 100%)',
+        'linear-gradient(to-t, orange.900 0%, #4d1215 33%, gray.900 83%, #0c0d12 100%)')}
+        h="150vh" w="100%" pt="5vh" direction="column" alignItems="center" mt="6vh">
+        <Text as="b" fontSize={["32px", "32px", "48px", "64px"]} align="center" maxWidth={["85vw", "55vw"]}
+          mb={phone ? "1vh" : "6vh"}>
+          Automate your Windows with <Text as="b" color={useColorModeValue("orange.400", "orange.300")}>ISU Blind Controller</Text>
+        </Text>
+        <Text fontSize={["16px", "16px", "20px", "28px"]} align="center" maxWidth={["90vw", "55vw"]}>
+          The ISU Blind Controller is a project designed to minimize
+          glare from the sun while maximizing productivity. We are retrofitting blinds in the
+          TLA with motor controllers to allow for easy and accessible control of the shades.
+          {/* The shadiest Senior Design Project yet! */}
+        </Text>
+        <Stack direction={["column", "row"]} spacing="20px" mt="50px">
+          <Button size="lg"
+            bg={useColorModeValue("orange.300", "orange.400")} _hover={{ bg: useColorModeValue("orange.400", "orange.300") }} _active={{ bg: useColorModeValue("orange.500", "orange.200") }}
+            rightIcon={<Icon as={ArrowForwardIcon} color="black" />}
+          >
+            <Text color="black">
+              Log In
             </Text>
-            <Stack direction={['column', 'row']} w="100%" h="100%" alignItems='flex-end'>
-              <Spacer />
-              <Button my="5px" w="110px" variant="solid" size={smallMedium}
-                bg="gray.900" _hover={{ bg: "gray.700" }} _active={{ bg: "gray.800" }} leftIcon={<Icon as={FaMoon} color="yellow.200" />}>
-                <Text color="white">
-                  All Closed
-                </Text>
-              </Button>
-              <Spacer />
-              <Button my="5px" w="110px" variant="solid" size={smallMedium}
-                bg="gray.600" _hover={{ bg: "gray.500" }} _active={{ bg: "gray.400" }} leftIcon={<Icon as={FaCloud} color="gray.300" />}>
-                <Text color="white">
-                  All Dim
-                </Text>
-              </Button>
-              <Spacer />
-              <Button my="5px" w="110px" variant="solid" size={smallMedium}
-                bg="gray.50" _hover={{ bg: "gray.200" }} _active={{ bg: "gray.100" }} leftIcon={<Icon as={FaSun} color="yellow.500" />}>
-                <Text color="black">
-                  All Open
-                </Text>
-              </Button>
-              <Spacer />
-            </Stack>
-          </Flex>
-          <Flex bg={useColorModeValue("orange.300", "orange.300")} direction="column" h={manualBoxHeight} w="80vw" borderRadius="15px">
-            <Text pl="30px" py="3vh" color="black" as="b" position="absolute">
-              Manual
-            </Text>
-            <Flex w="100%" h="100%" pt="8%"
-              direction={phone ? "column" : "row"}
-              alignItems="center" pb="30px">
-              <Spacer />
-              <BlindSlider phone={phone} />
-              <BlindSlider phone={phone} />
-              <BlindSlider phone={phone} />
-              <Spacer />
-              <BlindSlider phone={phone} />
-              <BlindSlider phone={phone} />
-              <BlindSlider phone={phone} />
-              <Spacer />
-              <BlindSlider phone={phone} />
-              <BlindSlider phone={phone} />
-              <BlindSlider phone={phone} />
-              <Spacer />
-              <BlindSlider phone={phone} />
-              <BlindSlider phone={phone} />
-              <BlindSlider phone={phone} />
-              <Spacer />
-              <BlindSlider phone={phone} />
-              <BlindSlider phone={phone} />
-              <BlindSlider phone={phone} />
-              <Spacer />
-            </Flex>
-          </Flex>
-        </VStack>
+          </Button>
+          <Link href="../demo">
+            <Button size="lg" as="a">
+              <Text>
+                Try a Demo
+              </Text>
+            </Button>
+          </Link>
+        </Stack>
+        <Spacer />
+        <Footer />
       </Flex >
     </div >
   )
 };
 
-export default Home;
+export default Login;
