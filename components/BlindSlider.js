@@ -9,18 +9,26 @@ import {
 } from '@chakra-ui/react'
 
 import { MdGraphicEq } from 'react-icons/md';
+import { useState } from 'react';
 
-const BlindSlider = (props) => {
+
+const BlindSlider = ({ phone, updateVar }) => {
+    //This variable is for ALL sliders, not just this component
+    // const [updated, setUpdated] = useState(updateVar);
+
 
     return (
-        <Box h={props.phone ? "4%" : "70%"} w={props.phone ? "70%" : "4%"}>
+        <Box h={phone ? "4.5%" : "70%"} w={phone ? "70%" : "4%"}>
             <Slider
                 aria-label='slider-ex-3'
                 defaultValue={60}
-                orientation={props.phone ? 'horizontal' : 'vertical'}
-                minH={props.phone ? "40px" : '100px'}
-                minW={props.phone ? '100px' : '10px'}
+                orientation={phone ? 'horizontal' : 'vertical'}
+                minH={phone ? "40px" : '100px'}
+                minW={phone ? '100px' : '10px'}
                 step={10}
+                onChangeEnd={() => {
+                    updateVar(true)
+                }}
             >
                 <SliderTrack bg='red.100'>
 

@@ -1,3 +1,5 @@
+import Link from 'next/link'
+import { signIn, signOut, useSession } from 'next-auth/react'
 
 import {
     Flex,
@@ -17,8 +19,6 @@ import { MdGraphicEq } from 'react-icons/md';
 import { SunIcon, MoonIcon, ChevronRightIcon } from '@chakra-ui/icons'
 import React, { useEffect, useState } from 'react';
 
-import Link from "next/link"
-
 const NavBar = (props) => {
     const { colorMode, toggleColorMode } = useColorMode();
     const [windowSize, setWindowSize] = useState(0);
@@ -34,40 +34,39 @@ const NavBar = (props) => {
 
     const phone = windowSize < 768; //number should be adjusted
 
+    const { data: session } = useSession();
+
+    let button;
+
+    if (props.login) {
+        button = <Link href="../">
+            <Button mr="10%" h="30px" as="a">
+                <Text>
+                    Home
+                </Text>
+            </Button>
+        </Link>;
+    }
+    else if (session) {
+        button = <Button mr="10%" h="30px" onClick={signOut}>
+            <Text>
+                Logout
+            </Text>
+        </Button>;
+    } else {
+        button = <Button mr="10%" h="30px" onClick={signIn}>
+            <Text>
+                Login
+            </Text>
+        </Button>;
+    }
 
     return (
         <Flex bg={useColorModeValue("gray.300", "gray.800")} h="6vh" w="100%"
             alignItems="center" px="30px" position="fixed" top="0" zIndex="2">
-            <IconButton size="md" mr="30px" aria-label='Search database' icon={useColorModeValue(<MoonIcon />, <SunIcon />)} onClick={toggleColorMode} />
-            <Breadcrumb separator={<ChevronRightIcon color='gray.500' />}>
-                <BreadcrumbItem>
-                    <BreadcrumbLink
-                        //as={Link} to='#'
-                        href="#"
-                    >
-                        Locations
-                    </BreadcrumbLink>
-                </BreadcrumbItem>
-                {phone ? <></> :
-                    <BreadcrumbItem>
-                        <BreadcrumbLink
-                            //as={Link} to='#'
-                            href="#"
-                        >
-                            Coover
-                        </BreadcrumbLink>
-                    </BreadcrumbItem>
-                }
-                <BreadcrumbItem isCurrentPage>
-                    <BreadcrumbLink><Text as="b">{useBreakpointValue({ base: props.shortPage, md: props.page })}</Text></BreadcrumbLink>
-                </BreadcrumbItem>
-            </Breadcrumb>
+            <IconButton size="md" mr="30px" aria-label='Color Mode' icon={useColorModeValue(<MoonIcon />, <SunIcon />)} onClick={toggleColorMode} />
             <Spacer />
-            <Button mr="10%" h="30px">
-                <Text>
-                    Log In
-                </Text>
-            </Button>
+            {button}
         </Flex>
     )
 };
