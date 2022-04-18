@@ -71,14 +71,18 @@ const Login = () => {
           {/* The shadiest Senior Design Project yet! */}
         </Text>
         <Stack direction={["column", "row"]} spacing="20px" mt="50px">
-          <Button size="lg"
-            bg={useColorModeValue("orange.300", "orange.400")} _hover={{ bg: useColorModeValue("orange.400", "orange.300") }} _active={{ bg: useColorModeValue("orange.500", "orange.200") }}
-            rightIcon={<Icon as={ArrowForwardIcon} color="black" />}
-          >
-            <Text color="black">
-              Log In
-            </Text>
-          </Button>
+          <Link href="../login">
+            <Button size="lg"
+              bg={useColorModeValue("orange.300", "orange.400")} _hover={{ bg: useColorModeValue("orange.400", "orange.300") }} _active={{ bg: useColorModeValue("orange.500", "orange.200") }}
+              rightIcon={<Icon as={ArrowForwardIcon} color="black" />}
+              as="a"
+            >
+              <Text color="black">
+                Log In
+              </Text>
+            </Button>
+          </Link>
+
           <Link href="../demo">
             <Button size="lg" as="a">
               <Text>

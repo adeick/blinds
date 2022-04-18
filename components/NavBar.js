@@ -54,11 +54,16 @@ const NavBar = (props) => {
             </Text>
         </Button>;
     } else {
-        button = <Button mr="10%" h="30px" onClick={signIn}>
-            <Text>
-                Login
-            </Text>
-        </Button>;
+        button =
+            <Link href="../login">
+                <Button mr="10%" h="30px"
+                    as="a">
+                    {/* // onClick={signIn}> */}
+                    <Text>
+                        Login
+                    </Text>
+                </Button>
+            </Link>;
     }
 
     return (
