@@ -76,7 +76,7 @@ const Login = () => {
         return (
             <div id="Home">
 
-                <NavBar page="Authentication" login={true} />
+                <NavBar page="Authentication" />
                 {/* TODO */}
                 <Flex bgGradient={useColorModeValue('linear-gradient(to-t, orange.300 0%, orange.200 33%, blue.100 83%, blue.200 100%)',
                     'linear-gradient(to-t, orange.900 0%, #4d1215 33%, gray.900 83%, #0c0d12 100%)')}

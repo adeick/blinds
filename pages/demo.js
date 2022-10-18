@@ -28,34 +28,15 @@ import BlindSlider from '../components/BlindSlider';
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
 
-import { useSelector, useDispatch } from 'react-redux';
-import { updateBlinds } from "../store/blinds/action";
-
-const useDemo = () => {
-    const tlaBlinds = useSelector((state) => state.blinds.tlaBlinds);
-    return { tlaBlinds };
-}
-
 const Demo = () => {
-    const { tlaBlinds } = useDemo();
-    const dispatch = useDispatch();
-
     const { colorMode, toggleColorMode } = useColorMode();
     const [windowSize, setWindowSize] = useState(0);
     const [updated, setUpdated] = useState(false);
+    const [count, setCount] = useState(0);
     const [preset, setPreset] = useState(0);
     //0 is manual, 1 is closed, 2 is dim, 3 is open
 
-    const [closedConfirmation, setClosedConfirmation] = useState(false);
-    const [dimConfirmation, setDimConfirmation] = useState(false);
-    const [openConfirmation, setOpenConfirmation] = useState(false);
 
-    const [manualBlinds, setManualBlinds] = useState([...tlaBlinds]);
-
-
-    const sliderUpdated = (value, id) => {
-        setManualBlinds([...manualBlinds.slice(0, id), value, ...manualBlinds.slice(id + 1)]);
-    }
 
     useEffect(() => {
         setWindowSize(window.outerWidth);
@@ -67,22 +48,11 @@ const Demo = () => {
     }, [windowSize]);
 
     useEffect(() => {
+        count++
         setUpdated(updated);
+        setCount(count);
+        // console.log("UseEffect");
     }, [updated]);
-
-    useEffect(() => {
-        setClosedConfirmation(false);
-        setDimConfirmation(false);
-        setOpenConfirmation(false);
-        for (let i = 0; i < 15; i++) {
-            if (manualBlinds[i] != tlaBlinds[i]) {
-                setUpdated(true);
-                return;
-            }
-        }
-        setUpdated(false);
-    }, [manualBlinds]);
-
 
     const rowColumn = useBreakpointValue({ base: 'row', md: 'column' });
     const smallMedium = useBreakpointValue({ base: 'sm', md: 'md' });
@@ -106,64 +76,28 @@ const Demo = () => {
                             <Button my="5px" w="110px" variant="solid" size={smallMedium}
                                 bg="gray.900" _hover={{ bg: "gray.700" }} _active={{ bg: "gray.800" }} leftIcon={<Icon as={FaMoon} color="yellow.200" />}
                                 disabled={preset == 1}
-                                onClick={() => {
-                                    if (closedConfirmation) {
-                                        setPreset(1);
-                                        dispatch(updateBlinds([10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10]));
-                                        setManualBlinds([10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10]);
-                                        setClosedConfirmation(false);
-                                    }
-                                    else {
-                                        setClosedConfirmation(true);
-                                        setDimConfirmation(false);
-                                        setOpenConfirmation(false);
-                                    }
-                                }}
+                                onClick={() => setPreset(1)}
                             >
                                 <Text color="white">
-                                    {closedConfirmation ? "Confirm?" : "All Closed"}
+                                    All Closed
                                 </Text>
                             </Button>
                             <Spacer />
                             <Button my="5px" w="110px" variant="solid" size={smallMedium}
                                 bg="gray.600" _hover={{ bg: "gray.500" }} _active={{ bg: "gray.400" }} leftIcon={<Icon as={FaCloud} color="gray.300" />}
                                 disabled={preset == 2}
-                                onClick={() => {
-                                    if (dimConfirmation) {
-                                        setPreset(2)
-                                        dispatch(updateBlinds([40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40]));
-                                        setManualBlinds([40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40]);
-                                        setDimConfirmation(false);
-                                    }
-                                    else {
-                                        setClosedConfirmation(false);
-                                        setDimConfirmation(true);
-                                        setOpenConfirmation(false);
-                                    }
-                                }}>
+                                onClick={() => setPreset(2)}>
                                 <Text color="white">
-                                    {dimConfirmation ? "Confirm?" : "All Dim"}
+                                    All Dim
                                 </Text>
                             </Button>
                             <Spacer />
                             <Button my="5px" w="110px" variant="solid" size={smallMedium}
                                 bg="gray.50" _hover={{ bg: "gray.200" }} _active={{ bg: "gray.100" }} leftIcon={<Icon as={FaSun} color="yellow.500" />}
                                 disabled={preset == 3}
-                                onClick={() => {
-                                    if (openConfirmation) {
-                                        setPreset(3)
-                                        dispatch(updateBlinds([60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60,]));
-                                        setManualBlinds([60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60]);
-                                        setOpenConfirmation(false);
-                                    }
-                                    else {
-                                        setClosedConfirmation(false);
-                                        setDimConfirmation(false);
-                                        setOpenConfirmation(true);
-                                    }
-                                }}>
+                                onClick={() => setPreset(3)}>
                                 <Text color="black">
-                                    {openConfirmation ? "Confirm?" : "All Open"}
+                                    All Open
                                 </Text>
                             </Button>
                             <Spacer />
@@ -177,21 +111,25 @@ const Demo = () => {
                             direction={phone ? "column" : "row"}
                             alignItems="center" pb="30px">
                             <Spacer />
-                            <BlindSlider phone={phone} updateVar={sliderUpdated} value={tlaBlinds[0]} id={0} />
-                            <BlindSlider phone={phone} updateVar={sliderUpdated} value={tlaBlinds[1]} id={1} />
-                            <BlindSlider phone={phone} updateVar={sliderUpdated} value={tlaBlinds[2]} id={2} /><Spacer />
-                            <BlindSlider phone={phone} updateVar={sliderUpdated} value={tlaBlinds[3]} id={3} />
-                            <BlindSlider phone={phone} updateVar={sliderUpdated} value={tlaBlinds[4]} id={4} />
-                            <BlindSlider phone={phone} updateVar={sliderUpdated} value={tlaBlinds[5]} id={5} />
-                            <BlindSlider phone={phone} updateVar={sliderUpdated} value={tlaBlinds[6]} id={6} />
-                            <BlindSlider phone={phone} updateVar={sliderUpdated} value={tlaBlinds[7]} id={7} /><Spacer />
-                            <BlindSlider phone={phone} updateVar={sliderUpdated} value={tlaBlinds[8]} id={8} />
-                            <BlindSlider phone={phone} updateVar={sliderUpdated} value={tlaBlinds[9]} id={9} />
-                            <BlindSlider phone={phone} updateVar={sliderUpdated} value={tlaBlinds[10]} id={10} />
-                            <BlindSlider phone={phone} updateVar={sliderUpdated} value={tlaBlinds[11]} id={11} />
-                            <BlindSlider phone={phone} updateVar={sliderUpdated} value={tlaBlinds[12]} id={12} /><Spacer />
-                            <BlindSlider phone={phone} updateVar={sliderUpdated} value={tlaBlinds[13]} id={13} />
-                            <BlindSlider phone={phone} updateVar={sliderUpdated} value={tlaBlinds[14]} id={14} />
+                            <BlindSlider phone={phone} updateVar={setUpdated} />
+                            <BlindSlider phone={phone} updateVar={setUpdated} />
+                            <BlindSlider phone={phone} updateVar={setUpdated} />
+                            <Spacer />
+                            <BlindSlider phone={phone} updateVar={setUpdated} />
+                            <BlindSlider phone={phone} updateVar={setUpdated} />
+                            <BlindSlider phone={phone} updateVar={setUpdated} />
+                            <Spacer />
+                            <BlindSlider phone={phone} updateVar={setUpdated} />
+                            <BlindSlider phone={phone} updateVar={setUpdated} />
+                            <BlindSlider phone={phone} updateVar={setUpdated} />
+                            <Spacer />
+                            <BlindSlider phone={phone} updateVar={setUpdated} />
+                            <BlindSlider phone={phone} updateVar={setUpdated} />
+                            <BlindSlider phone={phone} updateVar={setUpdated} />
+                            <Spacer />
+                            <BlindSlider phone={phone} updateVar={setUpdated} />
+                            <BlindSlider phone={phone} updateVar={setUpdated} />
+                            <BlindSlider phone={phone} updateVar={setUpdated} />
                             {lastSpacer}
                         </Flex>
                         <Button alignSelf="flex-end" right="30px" bottom="15px" my="5px" w="80px" h="40px" variant="solid"
@@ -200,10 +138,6 @@ const Demo = () => {
                             onClick={() => {
                                 setUpdated(false);
                                 setPreset(0);
-                                dispatch(updateBlinds(manualBlinds));
-                                setClosedConfirmation(false);
-                                setDimConfirmation(false);
-                                setOpenConfirmation(false);
                             }}
                         >
                             <Text color="black">
