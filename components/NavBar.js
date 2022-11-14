@@ -64,6 +64,13 @@ const NavBar = (props) => {
         <Flex bg={useColorModeValue("gray.300", "gray.800")} h="60px" w="100%"
             alignItems="center" px="30px" position="fixed" top="0" zIndex="2">
             <IconButton size="md" mr="30px" aria-label='Color Mode' icon={useColorModeValue(<MoonIcon />, <SunIcon />)} onClick={toggleColorMode} />
+            <Link href="/">
+                <Button mr="10%" h="45px">
+                    <Text>
+                        Home
+                    </Text>
+                </Button>
+            </Link>
             <Spacer />
             {/* <Image borderRadius='full' boxSize="45px" src="https://bit.ly/dan-abramov" alt={profileName} />;*/}
             {profileImage}
